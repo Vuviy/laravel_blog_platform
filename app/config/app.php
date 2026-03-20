@@ -123,12 +123,4 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-//    'providers' => [
-//        Nwidart\Modules\LaravelModulesServiceProvider::class,
-//    ],
-//
-//    'aliases' => [
-//        'Module' => Nwidart\Modules\Facades\Module::class,
-//    ],
-
 ];

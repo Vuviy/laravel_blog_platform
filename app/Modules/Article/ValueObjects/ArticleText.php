@@ -1,17 +1,17 @@
 <?php
 
-namespace App\ValueObjects;
+namespace Modules\Article\ValueObjects;
 
-class ArticleTitle
+class ArticleText
 {
     private ?string $value;
 
-    public function __construct(?string $title = null)
+    public function __construct(?string $text = null)
     {
-        $this->value = $title;
+        $this->value = $text;
 
         if (trim($this->value) === '') {
-            throw new \InvalidArgumentException('Title cannot be empty');
+            throw new \InvalidArgumentException('Text cannot be empty');
         }
     }
 

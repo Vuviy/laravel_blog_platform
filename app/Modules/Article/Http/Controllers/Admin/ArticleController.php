@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Modules\Article\Http\Controllers\Admin;
 
-use App\Services\ArticleService;
-use App\ValueObjects\ArticleId;
+
 use Illuminate\Http\Request;
+use Modules\Article\Services\ArticleService;
+use Modules\Article\ValueObjects\ArticleId;
 
 class ArticleController
 {
@@ -18,11 +19,10 @@ class ArticleController
     public function index()
     {
 
-
         $articles = $this->service->getAll();
         $title = 'Articles';
 
-        return view('admin.articles.index', compact( 'articles','title'));
+        return view('article::admin.index', compact( 'articles','title'));
     }
 
     /**
@@ -32,7 +32,7 @@ class ArticleController
     {
         $title = 'Create a new article';
 
-        return view('admin.articles.form', compact('title'));
+        return view('article::admin.form', compact('title'));
     }
 
     /**
@@ -60,7 +60,7 @@ class ArticleController
 
         $title = 'Edit a new article';
 
-        return view('admin.articles.form', compact('title', 'article'));
+        return view('article::admin.form', compact('title', 'article'));
     }
 
     /**

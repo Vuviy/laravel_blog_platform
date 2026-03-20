@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Artice\app\Services;
+namespace Modules\Article\Services;
 
-use App\Entity\Article;
-use App\Repositories\Contracts\ArticleRepositoryInterface;
-use App\ValueObjects\ArticleId;
-use App\ValueObjects\ArticleText;
-use App\ValueObjects\ArticleTitle;
 use Illuminate\Database\Eloquent\Collection;
+use Modules\Article\Entities\Article;
+use Modules\Article\Repositories\Contracts\ArticleRepositoryInterface;
+use Modules\Article\ValueObjects\ArticleId;
+use Modules\Article\ValueObjects\ArticleText;
+use Modules\Article\ValueObjects\ArticleTitle;
 
 class ArticleService
 {

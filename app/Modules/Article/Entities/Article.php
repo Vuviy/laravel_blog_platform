@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Article\app\Entities;
+namespace Modules\Article\Entities;
 
-use App\ValueObjects\ArticleId;
-use App\ValueObjects\ArticleText;
-use App\ValueObjects\ArticleTitle;
+use Modules\Article\ValueObjects\ArticleId;
+use Modules\Article\ValueObjects\ArticleText;
+use Modules\Article\ValueObjects\ArticleTitle;
 
 final class Article
 {

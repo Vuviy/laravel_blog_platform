@@ -1,17 +1,17 @@
 <?php
 
-namespace App\ValueObjects;
+namespace Modules\Article\ValueObjects;
 
-class ArticleId
+class ArticleTitle
 {
     private ?string $value;
 
-    public function __construct(?string $id = null)
+    public function __construct(?string $title = null)
     {
-        $this->value = $id ?: uniqid();
+        $this->value = $title;
 
         if (trim($this->value) === '') {
-            throw new \InvalidArgumentException('Id cannot be empty');
+            throw new \InvalidArgumentException('Title cannot be empty');
         }
     }
 

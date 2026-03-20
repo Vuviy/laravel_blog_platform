@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Providers;
+namespace Modules\Article\Providers;
 
-use App\Repositories\ArticleRepository;
-use App\Repositories\Contracts\ArticleRepositoryInterface;
 use Carbon\Laravel\ServiceProvider;
+use Modules\Article\Repositories\ArticleRepository;
+use Modules\Article\Repositories\Contracts\ArticleRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

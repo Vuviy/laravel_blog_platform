@@ -1,15 +1,14 @@
 <?php
 
-namespace Modules\Artice\app\Repositories;
+namespace Modules\Article\Repositories;
 
-
-use App\Entity\Article;
-use App\Repositories\Contracts\ArticleRepositoryInterface;
-use App\ValueObjects\ArticleId;
-use App\ValueObjects\ArticleText;
-use App\ValueObjects\ArticleTitle;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Modules\Article\Entities\Article;
+use Modules\Article\Repositories\Contracts\ArticleRepositoryInterface;
+use Modules\Article\ValueObjects\ArticleId;
+use Modules\Article\ValueObjects\ArticleText;
+use Modules\Article\ValueObjects\ArticleTitle;
 use Symfony\Component\Uid\UuidV7;
 
 class ArticleRepository implements ArticleRepositoryInterface

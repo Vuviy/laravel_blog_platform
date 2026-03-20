@@ -2,12 +2,8 @@
 
 namespace Modules\Article\Http\Controllers;
 
-use App\Entity\Article;
-use App\Services\ArticleService;
-use App\ValueObjects\ArticleId;
 use Illuminate\Routing\Controller;
-use Symfony\Component\Uid\Uuid;
-use Symfony\Component\Uid\UuidV7;
+use Modules\Article\Services\ArticleService;
 
 class ArticleController extends Controller
 {
@@ -22,6 +18,13 @@ class ArticleController extends Controller
     // сіквенси в постгре, ждсон, вставляти неправильні дані, транзакції, партіал індекс
     //  в канві canva
     // rest graphql  rpc
+
+
+
+    // тепер в мене помилка тут: Modules/Article/Http/Controllers/ArticleController.php
+    //return view('index', compact('articles', 'title'));
+    //View [index] not found.
+    //Як зробити щоб шаблони тобто layouts був тут app/resources/views/layout.blade.php
     public function index()
     {
 
@@ -46,12 +49,8 @@ class ArticleController extends Controller
         $articles = $this->service->getAll();
         $title = 'Articles';
 
-        return view('articles', compact('articles', 'title'));
+        return view('article::index', compact('articles', 'title'));
 
     }
 
-    public function admin()
-    {
-
-    }
 }

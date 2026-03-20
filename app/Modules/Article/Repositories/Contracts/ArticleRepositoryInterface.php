@@ -1,11 +1,10 @@
 <?php
 
-namespace Modules\Artice\app\Repositories\Contracts;
+namespace Modules\Article\Repositories\Contracts;
 
-
-use App\Entity\Article;
-use App\ValueObjects\ArticleId;
 use Illuminate\Database\Eloquent\Collection;
+use Modules\Article\Entities\Article;
+use Modules\Article\ValueObjects\ArticleId;
 
 interface ArticleRepositoryInterface
 {

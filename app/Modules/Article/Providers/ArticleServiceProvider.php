@@ -2,8 +2,9 @@
 
 namespace Modules\Article\Providers;
 
+use Modules\Article\Repositories\ArticleRepository;
+use Modules\Article\Repositories\Contracts\ArticleRepositoryInterface;
 use Nwidart\Modules\Support\ModuleServiceProvider;
-use Illuminate\Console\Scheduling\Schedule;
 
 class ArticleServiceProvider extends ModuleServiceProvider
 {
@@ -32,15 +33,24 @@ class ArticleServiceProvider extends ModuleServiceProvider
     protected array $providers = [
         EventServiceProvider::class,
         RouteServiceProvider::class,
+        RepositoryServiceProvider::class,
     ];
 
     /**
      * Define module schedules.
-     * 
+     *
      * @param $schedule
      */
     // protected function configureSchedules(Schedule $schedule): void
     // {
     //     $schedule->command('inspire')->hourly();
     // }
+
+//    public function register(): void
+//    {
+//        $this->app->bind(
+//            ArticleRepositoryInterface::class,
+//            ArticleRepository::class
+//        );
+//    }
 }
