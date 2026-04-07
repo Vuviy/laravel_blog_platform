@@ -2,14 +2,16 @@
 
 namespace Modules\Article\Repositories\Contracts;
 
-use Illuminate\Database\Eloquent\Collection;
+use App\ValueObjects\Id;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Article\Entities\Article;
-use Modules\Article\ValueObjects\ArticleId;
 
 interface ArticleRepositoryInterface
 {
-    public function getAll(): Collection;
-    public function get(ArticleId $articleId): ?Article;
-    public function save(Article $article): void;
-    public function delete(ArticleId $articleId): void;
+    public function getAll(): LengthAwarePaginator;
+    public function get(Id $articleId): ?Article;
+    public function save(Article $article): string;
+    public function delete(Id $id): void;
+
+    public function nextId(): Id;
 }

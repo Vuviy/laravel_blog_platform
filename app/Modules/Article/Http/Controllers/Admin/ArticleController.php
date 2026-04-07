@@ -3,15 +3,25 @@
 namespace Modules\Article\Http\Controllers\Admin;
 
 
+use App\ValueObjects\Id;
 use Illuminate\Http\Request;
+use Modules\Article\Entities\ArticleTranslation;
+use Modules\Article\Http\Requests\ArticleCreateRequest;
+use Modules\Article\Http\Requests\ArticleUpdateRequest;
+use Modules\Article\Repositories\ArticleRepository;
 use Modules\Article\Services\ArticleService;
 use Modules\Article\ValueObjects\ArticleId;
+use Modules\Tags\Entities\Tag;
+use Modules\Tags\Repositories\TagRepository;
+use Modules\Tags\ValueObjects\TagId;
+use Modules\Tags\ValueObjects\TagTitle;
 
 class ArticleController
 {
 
     public function __construct(
-        private ArticleService $service
+        private ArticleService $service,
+        private TagRepository $tagRepository
     ) {}
     /**
      * Display a listing of the resource.
@@ -30,17 +40,20 @@ class ArticleController
      */
     public function create()
     {
-        $title = 'Create a new article';
+        $title = __('common.create');
+        $tags = $this->tagRepository->getAllList();
 
-        return view('article::admin.form', compact('title'));
+        return view('article::admin.form', compact('title', 'tags'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+//    public function store(Request $request)
+    public function store(ArticleCreateRequest $request)
     {
-        //
+        $id = $this->service->create($request->all());
+        return redirect(route('admin.articles.edit', ['article' => $id]))->with('success', 'Article created successfully');
     }
 
     /**
@@ -56,19 +69,25 @@ class ArticleController
      */
     public function edit(string $id)
     {
-        $article = $this->service->getArticleById(new ArticleId($id));
+        $article = $this->service->getArticleById(new Id($id));
+        $title = __('common.edit');
+        $tags = $this->tagRepository->getAllList();
 
-        $title = 'Edit a new article';
+        $selectedTagIds = array_map(
+            fn(Tag $tag) => $tag->id->getValue(),
+            $article->tags
+        );
 
-        return view('article::admin.form', compact('title', 'article'));
+        return view('article::admin.form', compact('title', 'article', 'tags', 'selectedTagIds'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ArticleUpdateRequest $request, string $id)
     {
-        //
+        $this->service->update(new Id($id), $request->all());
+        return redirect(route('admin.articles.edit', ['article' => $id]))->with('success', 'Article edited successfully');
     }
 
     /**
@@ -76,6 +95,7 @@ class ArticleController
      */
     public function destroy(string $id)
     {
-        //
+        $this->service->delete(new Id($id));
+        return redirect(route('admin.articles.index'))->with('success', 'Article deleted successfully');
     }
 }

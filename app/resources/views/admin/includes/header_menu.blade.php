@@ -12,6 +12,13 @@
                 <a href="{{@route('admin.dashboard')}}" class="nav-link">Home</a>
             </li>
         </ul>
+
+        @foreach(config('app.available_locales') as $locale)
+            <a href="{{ route('locale.switch', $locale) }}"
+               class="{{ app()->getLocale() === $locale ? 'fw-bold' : '' }}">
+                {{ strtoupper($locale) }}
+            </a>
+        @endforeach
         <!--end::Start Navbar Links-->
 
         <!--begin::End Navbar Links-->
@@ -61,7 +68,7 @@
                         class="user-image rounded-circle shadow"
                         alt="User Image"
                     />
-                    <span class="d-none d-md-inline">Alexander Pierce</span>
+                    <span class="d-none d-md-inline">{{$user->username->getValue()}}</span>
                 </a>
                 @include('admin.includes.popups.user_menu')
 

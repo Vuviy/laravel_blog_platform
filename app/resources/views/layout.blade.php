@@ -3,14 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$title}}</title>
+
+    <title>{{ $title ?? 'App' }}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    @foreach(config('app.available_locales') as $locale)
+        <link rel="alternate"
+              hreflang="{{ $locale }}"
+              href="{{ route(Route::currentRouteName(), array_merge(request()->route()->parameters(), ['locale' => $locale])) }}">
+    @endforeach
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
+<!-- Header -->
+@include('includes.header')
 
-@yield('content')
+<!-- Content -->
+<main class="flex-grow-1 container py-4">
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @yield('content')
+</main>
+
+<!-- Footer -->
+@include('includes.footer')
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

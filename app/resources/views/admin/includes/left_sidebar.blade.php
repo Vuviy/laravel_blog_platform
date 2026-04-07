@@ -41,9 +41,44 @@
 {{--            </li>--}}
 
             <li class="nav-item">
-                <a href="{{@route('admin.articles.index')}}" class="nav-link">
+                <a href="{{route('admin.articles.index')}}" class="nav-link">
                     <i class="nav-icon bi bi-palette"></i>
-                    <p>Articles</p>
+                    <p>{{__('common.articles')}}</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('admin.tags.index')}}" class="nav-link">
+                    <i class="nav-icon bi bi-palette"></i>
+                    <p>{{__('common.tags')}}</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('admin.comments.index')}}" class="nav-link">
+                    <i class="nav-icon bi bi-palette"></i>
+                    <p>{{__('common.comments')}}</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('admin.users.index')}}" class="nav-link">
+                    <i class="nav-icon bi bi-palette"></i>
+                    <p>{{__('common.users')}}</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('admin.roles.index')}}" class="nav-link">
+                    <i class="nav-icon bi bi-palette"></i>
+                    <p>{{__('common.roles')}}</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('admin.permissions.index')}}" class="nav-link">
+                    <i class="nav-icon bi bi-palette"></i>
+                    <p>{{__('common.permissions')}}</p>
                 </a>
             </li>
 

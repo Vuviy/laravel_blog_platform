@@ -2,6 +2,8 @@
 
 namespace Modules\Article\Http\Controllers;
 
+use App\ValueObjects\Id;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Article\Services\ArticleService;
 
@@ -19,37 +21,24 @@ class ArticleController extends Controller
     //  в канві canva
     // rest graphql  rpc
 
+    // generic interface repo але це не обовязеово
+    public function index(Request $request)
+    {
+        $articles = $this->service->getAll();
+        $title = __('common.articles');
+        return view('article::index', compact('articles', 'title'));
 
 
-    // тепер в мене помилка тут: Modules/Article/Http/Controllers/ArticleController.php
-    //return view('index', compact('articles', 'title'));
-    //View [index] not found.
-    //Як зробити щоб шаблони тобто layouts був тут app/resources/views/layout.blade.php
-    public function index()
+    }
+
+    public function show(string $id)
     {
 
-//       $id = new UuidV7();
-//
-//       echo $id;
-//       dd(67);
-//       $ar = new ArticleId($id);
-//       dd($ar);
+        $article = $this->service->getArticleById( new Id($id));
 
-//        $articleId = new ArticleId('019cfcdc-6090-704b-bf39-476011590f29');
-//        $articleId = new ArticleId('019d05d0-4623-7e4f-b60c-c1d466bb3f6b');
+        $title = __('common.article');
 
-//         $this->service->update($articleId, ['title' => 'новий тітле']);
-//         $this->service->create(['title' => 'craka kakae', 'text' => 'textocia']);
-
-
-
-
-//        dd(897);
-
-        $articles = $this->service->getAll();
-        $title = 'Articles';
-
-        return view('article::index', compact('articles', 'title'));
+        return view('article::show', compact('article', 'title'));
 
     }
 
