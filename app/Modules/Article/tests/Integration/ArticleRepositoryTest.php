@@ -357,7 +357,7 @@ class ArticleRepositoryTest extends TestCase
 
         $this->repository->syncTags(new Id($uuid), [$tagId]);
 
-        $this->assertDatabaseHas('added_tags', [
+        $this->assertDatabaseHas('taggables', [
             'entity_id'   => $uuid,
             'tag_id'      => $tagId,
             'entity_type' => 'Modules\Article\Entities\Article',
@@ -379,8 +379,8 @@ class ArticleRepositoryTest extends TestCase
         $this->repository->syncTags(new Id($uuid), [$oldTagId]);
         $this->repository->syncTags(new Id($uuid), [$newTagId]);
 
-        $this->assertDatabaseMissing('added_tags', ['tag_id' => $oldTagId]);
-        $this->assertDatabaseHas('added_tags', ['tag_id' => $newTagId]);
+        $this->assertDatabaseMissing('taggables', ['tag_id' => $oldTagId]);
+        $this->assertDatabaseHas('taggables', ['tag_id' => $newTagId]);
     }
 
     public function testSyncTagsWithEmptyArrayDeletesAllTags(): void
@@ -394,6 +394,6 @@ class ArticleRepositoryTest extends TestCase
         $this->repository->syncTags(new Id($uuid), [$tagId]);
         $this->repository->syncTags(new Id($uuid), []);
 
-        $this->assertDatabaseMissing('added_tags', ['entity_id' => $uuid]);
+        $this->assertDatabaseMissing('taggables', ['entity_id' => $uuid]);
     }
 }

@@ -25,6 +25,9 @@ class SeoService
     {
         $seoPage = $this->seoPageRepository->getByUrl($url);
 
+        if(null === $seoPage) {
+            return $this;
+        }
         $this->title = $seoPage->translate(app()->currentLocale())->seoTitle;
         $this->description = $seoPage->translate(app()->currentLocale())->seoDescription;
         $this->keywords = $seoPage->translate(app()->currentLocale())->seoKeywords;

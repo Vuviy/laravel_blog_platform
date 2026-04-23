@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('seo_pages', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('url')->nullable();
+            $table->string('url')->nullable()->index();
             $table->timestamps();
         });
     }

@@ -25,7 +25,7 @@ use Symfony\Component\Uid\UuidV7;
 class NewsRepository implements NewsRepositoryInterface
 {
     private const TABLE_NAME = 'news';
-    private const PIVOT_TABLE = 'added_tags';
+    private const PIVOT_TABLE = 'taggables';
     private const COMMENT_TABLE = 'nested_comments';
     private const TRANSLATIONS_TABLE = 'news_translations';
     private const ENTITY_TYPE = 'Modules\News\Entities\News';

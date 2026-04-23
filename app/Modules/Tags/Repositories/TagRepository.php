@@ -15,7 +15,7 @@ use Symfony\Component\Uid\UuidV7;
 class TagRepository implements TagRepositoryInterface
 {
     private CONST TABLE_NAME = 'tags';
-    private CONST ADDED_TABLE_NAME = 'added_tags';
+    private CONST ADDED_TABLE_NAME = 'taggables';
 
 
     public function __construct(private TaggableRegistry $registry) {}

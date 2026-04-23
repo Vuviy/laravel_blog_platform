@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('added_tags', function (Blueprint $table) {
-            $table->uuid('tag_id');
+        Schema::create('taggables', function (Blueprint $table) {
+            $table->uuid('tag_id')->index();
             $table->uuidMorphs('entity');
-            $table->timestamps();
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->foreign('tag_id')
+                ->references('id')
+                ->on('tags')
+                ->onDelete('cascade');
+
+            $table->primary(['tag_id', 'entity_id', 'entity_type']);
         });
     }
 
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('added_tags');
+        Schema::dropIfExists('taggables');
     }
 };

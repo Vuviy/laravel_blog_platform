@@ -25,7 +25,7 @@ use Symfony\Component\Uid\UuidV7;
 class ArticleRepository implements ArticleRepositoryInterface
 {
     private const TABLE_NAME = 'articles';
-    private const PIVOT_TABLE = 'added_tags';
+    private const PIVOT_TABLE = 'taggables';
     private const COMMENT_TABLE = 'nested_comments';
     private const TRANSLATIONS_TABLE = 'article_translations';
     private const ENTITY_TYPE = 'Modules\Article\Entities\Article';
@@ -258,8 +258,11 @@ class ArticleRepository implements ArticleRepositoryInterface
             ->join(self::COMMENT_TABLE . ' as root', function ($join) {
                 $join->on('root.lft', '<=', 'c.lft')
                     ->on('root.rgt', '>=', 'c.rgt')
+                    ->on('root.entity_type', '=', 'c.entity_type')
+                    ->on('root.entity_id', '=', 'c.entity_id')
                     ->whereNull('root.parent_id');
             })
+            ->where('c.entity_type', self::ENTITY_TYPE)
             ->where('c.entity_id', $articleId->getValue())
             ->where('c.status', CommentStatus::APPROVED)
             ->orderByDesc('root.created_at')

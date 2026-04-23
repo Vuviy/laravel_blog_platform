@@ -51,9 +51,9 @@ class CreateAdminCommand extends Command
 
             $this->userRepository->syncRoles(new Id($userId), [$adminRoleId]);
 
-            $this->info('Created role user2');
-            $this->info('Created role admin2');
-            $this->info('Created admin user with credentials: email admin2@admin.com, password password');
+            $this->info('Created role user');
+            $this->info('Created role admin');
+            $this->info('Created admin user with credentials: email admin@admin.com, password password');
         } catch (\Exception $exception) {
             $this->error($exception->getMessage());
         }

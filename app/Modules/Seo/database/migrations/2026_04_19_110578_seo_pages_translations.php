@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('seo_pages_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('seo_page_id');
-            $table->string('locale', 5);
+            $table->uuid('seo_page_id')->index();
+            $table->string('locale', 2)->index();
 
             $table->string('seo_title', 60)->nullable();
             $table->string('seo_description', 160)->nullable();

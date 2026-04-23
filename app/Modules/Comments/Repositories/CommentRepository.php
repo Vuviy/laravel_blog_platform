@@ -16,9 +16,7 @@ use Symfony\Component\Uid\UuidV7;
 
 class CommentRepository implements CommentRepositoryInterface
 {
-    private const TABLE_NAME = 'nested_comments';
-
-//    private CONST TABLE_NAME = 'comments';
+    private const TABLE_NAME = 'comments';
 
     public function get(Id $commentId): ?Comment
     {
@@ -53,12 +51,16 @@ class CommentRepository implements CommentRepositoryInterface
 
             DB::table(self::TABLE_NAME)
                 ->where('rgt', '>=', $parent->rgt)
+                ->where('entity_type', $parent->entity_type)
+                ->where('entity_id', $parent->entity_id)
                 ->update([
                     'rgt' => DB::raw('rgt + 2')
                 ]);
 
             DB::table(self::TABLE_NAME)
                 ->where('lft', '>', $parent->rgt)
+                ->where('entity_type', $parent->entity_type)
+                ->where('entity_id', $parent->entity_id)
                 ->update([
                     'lft' => DB::raw('lft + 2')
                 ]);
@@ -84,9 +86,16 @@ class CommentRepository implements CommentRepositoryInterface
 
     public function getMaxRgt(Id $entityId): ?int
     {
-        return DB::table(self::TABLE_NAME)
-            ->where('entity_id', $entityId)
-            ->max('rgt');
+        $maxRgt = null;
+        DB::transaction(function () use ($entityId, &$maxRgt) {
+            $maxRgt = DB::table(self::TABLE_NAME)
+                ->where('entity_id', $entityId)
+                ->orderByDesc('rgt')
+                ->lockForUpdate()
+                ->value('rgt');
+        });
+
+        return $maxRgt;
     }
 
     public function save(Comment $comment): string

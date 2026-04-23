@@ -151,7 +151,7 @@ class TagRepositoryTest extends TestCase
         $entityId = (string) new UuidV7();
         $this->insertTag($tagId);
 
-        DB::table('added_tags')->insert([
+        DB::table('taggables')->insert([
             'tag_id'      => $tagId,
             'entity_id'   => $entityId,
             'entity_type' => 'Modules\Article\Entities\Article',
@@ -181,7 +181,7 @@ class TagRepositoryTest extends TestCase
         $oldId = (string) new UuidV7();
         $newId = (string) new UuidV7();
 
-        DB::table('added_tags')->insert([
+        DB::table('taggables')->insert([
             ['tag_id' => $tagId, 'entity_id' => $oldId, 'entity_type' => 'Modules\Article\Entities\Article', 'created_at' => now(), 'updated_at' => now()],
             ['tag_id' => $tagId, 'entity_id' => $newId, 'entity_type' => 'Modules\Article\Entities\Article', 'created_at' => now(), 'updated_at' => now()],
         ]);

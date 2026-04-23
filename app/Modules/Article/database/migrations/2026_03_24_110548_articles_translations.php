@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('article_translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('article_id');
-            $table->string('locale', 5);
+            $table->string('locale', 2);
             $table->string('title')->nullable();
             $table->text('text')->nullable();
+            $table->string('seo_title', 60)->nullable();
+            $table->string('seo_description', 160)->nullable();
+            $table->string('seo_keywords', 255)->nullable();
+            $table->string('seo_og_image')->nullable();
             $table->timestamps();
 
             $table->foreign('article_id')
@@ -24,7 +28,9 @@ return new class extends Migration
                 ->on('articles')
                 ->onDelete('cascade');
 
+            $table->index('article_id');
             $table->unique(['article_id', 'locale']);
+            $table->index('locale');
         });
     }
 

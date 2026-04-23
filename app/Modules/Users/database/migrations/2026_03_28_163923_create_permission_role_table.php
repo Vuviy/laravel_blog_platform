@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('permission_role', function (Blueprint $table) {
             $table->foreignUuid('role_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('permission_id')->constrained()->cascadeOnDelete();
-            $table->primary(['role_id', 'permission_id']);
+            $table->string('permission');
+            $table->primary(['role_id', 'permission']);
         });
     }
 
