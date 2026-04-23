@@ -3,5 +3,6 @@
     "Tags": true,
     "Comments": true,
     "News": true,
-    "Users": true
+    "Users": true,
+    "Seo": true
 }

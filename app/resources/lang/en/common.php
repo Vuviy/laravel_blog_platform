@@ -15,4 +15,16 @@ return [
     'users'        => 'Users',
     'permissions'        => 'Permissions',
     'roles'        => 'Roles',
+    'news'        => 'News',
+
+    'seo'        => 'Seo',
+    'seo_pages'        => 'Seo Pages',
+    'sitemapForm'        => 'Sitemap',
+    'robotForm'        => 'robot.txt',
+    'seo_title'        => 'Seo Title',
+    'seo_description'        => 'Seo Description',
+    'seo_keywords'        => 'Seo Keywords',
+    'seo_og_image'        => 'Seo Og Image',
+
+
 ];

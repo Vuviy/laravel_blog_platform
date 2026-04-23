@@ -23,7 +23,6 @@ class SetLocale
         $localeFromSession = session('locale', config('app.locale'));
 
         if (in_array($localeFromSession, config('app.available_locales'))) {
-//            $request->route()->forgetParameter('locale');
             App::setLocale($localeFromSession);
         }
 

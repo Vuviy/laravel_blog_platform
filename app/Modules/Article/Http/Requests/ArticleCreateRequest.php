@@ -12,11 +12,18 @@ class ArticleCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-//            'title' => 'required|min:3|max:100',
-//            'text' => 'required|min:10',
             'status' => 'boolean',
+            'slug' => 'required|string|max:255',
             'tags' => 'array',
+            'tags.*' => 'uuid',
             'translations' => 'array',
+            'translations.*' => 'array',
+            'translations.*.title' => 'required|string|max:255',
+            'translations.*.text' => 'required|string',
+            'translations.*.seo_title' => 'nullable|string|max:60',
+            'translations.*.seo_description' => 'nullable|string|max:160',
+            'translations.*.seo_keywords' => 'nullable|string|max:255',
+            'translations.*.seo_od_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ];
     }
 

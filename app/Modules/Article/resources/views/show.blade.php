@@ -3,6 +3,15 @@
 
 @section('content')
 
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{ $error }}</div>
+    @endforeach
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -26,14 +35,18 @@
                     <div class="mb-4">
                         @if(0 < count($article->tags))
                             @foreach($article->tags as $tag)
-                                <span class="badge bg-primary">{{$tag->title}}</span>
+                                <a
+                                    href="{{ route('tags.index', ['locale' => app()->currentLocale(), 'tagName' => $tag->title]) }}"
+                                    class="badge bg-primary text-white text-decoration-none">
+                                    {{ $tag->title }}
+                                </a>
                             @endforeach
                         @endif
                     </div>
 
                     <!-- Content -->
                     <div class="fs-5 lh-lg">
-                        {!! nl2br(e($article->translate(app()->currentLocale())->text)) !!}
+                        {!! $article->translate(app()->currentLocale())->text !!}
                     </div>
 
                     <!-- Divider -->

@@ -76,8 +76,8 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            $('#permissions-select').select2({
-                placeholder: 'Оберіть permissions...',
+            $('#roles-select').select2({
+                placeholder: 'Оберіть roles...',
                 allowClear: true,
                 width: '100%',
             });

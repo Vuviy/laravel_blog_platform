@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Seo\Facades\Seo;
 
 class HomeController extends Controller
 {
-
-    public function index(Request $request)
+    public function index()
     {
-
-        $title = 'Home';
-        $user = $request->attributes->get('user');
-        return view('home', compact( 'title', 'user'));
-
+        Seo::seoForStaticPage('/');
+        return view('home');
     }
-
-
 }

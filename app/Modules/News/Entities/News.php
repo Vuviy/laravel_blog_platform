@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Modules\News\Entities;
 
@@ -10,16 +11,18 @@ final class News
 {
     public function __construct(
         public ?Id              $id = null,
+        public ?string              $slug = null,
         public bool                $status = false,
         public ?\DateTimeImmutable $created_at = null,
         public ?\DateTimeImmutable $updated_at = null,
         public array               $tags = [],
         public array               $translations = [],
+        public array               $comments = [],
     )
     {
     }
 
-    public function translate(string $locale, string $fallback = 'uk'): ?ArticleTranslation
+    public function translate(string $locale, string $fallback = 'uk'): ?NewsTranslation
     {
 
         foreach ($this->translations as $translation) {

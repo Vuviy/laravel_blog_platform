@@ -14,5 +14,11 @@ class ArticleTranslation
         public string                $locale = 'uk',
         public ?ArticleTitle         $title = null,
         public ?ArticleText          $text = null,
+
+        //Seo
+        public ?string $seoTitle = null,
+        public ?string $seoDescription = null,
+        public ?string $seoKeywords = null,
+        public ?string $seoOgImage = null,
     ) {}
 }

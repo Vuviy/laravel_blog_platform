@@ -17,6 +17,10 @@ final class Comment
         public CommentText         $content,
         public EntityType          $entityType,
         public Id                  $entityId,
+        public ?string              $parentId,
+        public int                  $lft,
+        public int                  $rgt,
+        public int                  $depth,
         public CommentStatus       $status = CommentStatus::PENDING,
         public ?Id                 $id = null,
         public ?\DateTimeImmutable $created_at = null,
@@ -24,7 +28,6 @@ final class Comment
     )
     {
     }
-
 
     public function getUser(): ?User
     {

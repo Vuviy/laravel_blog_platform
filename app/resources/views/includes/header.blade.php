@@ -8,7 +8,11 @@
                     <a class="nav-link" href="{{route('home', ['locale' => app()->currentLocale()])}}">Головна</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('articles', ['locale' => app()->currentLocale()])}}">Статті</a>
+                    <a class="nav-link" href="{{route('articles', ['locale' => app()->currentLocale()])}}">{{__('common.articles')}}</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('news', ['locale' => app()->currentLocale()])}}">{{__('common.news')}}</a>
                 </li>
             </ul>
 

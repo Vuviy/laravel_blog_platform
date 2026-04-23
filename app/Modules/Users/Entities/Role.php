@@ -3,10 +3,7 @@
 namespace Modules\Users\Entities;
 
 use App\ValueObjects\Id;
-use Modules\Users\ValueObjects\Email;
-use Modules\Users\ValueObjects\Password;
 use Modules\Users\ValueObjects\RoleName;
-use Modules\Users\ValueObjects\Username;
 
 class Role
 {

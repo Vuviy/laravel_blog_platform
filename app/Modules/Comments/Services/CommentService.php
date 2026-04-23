@@ -18,7 +18,6 @@ class CommentService
     {
     }
 
-
     public function getCommentById(Id $id): ?Comment
     {
         return $this->repository->get($id);
@@ -31,10 +30,24 @@ class CommentService
 
     public function create(array $data): string
     {
+        if(array_key_exists('parent_id', $data) && null !== $data['parent_id'])
+        {
+            return $this->repository->createChildComment($data);
+        }
+
+        $maxRgt = $this->repository->getMaxRgt(new Id($data['entity_id']));
+
+        $lft = $maxRgt ? $maxRgt + 1 : 1;
+        $rgt = $maxRgt ? $maxRgt + 2 : 2;
+
         $comment = new Comment(
             content: new CommentText($data['content']),
             userId: new Id($data['user_id']),
             entityId: new Id($data['entity_id']),
+            parentId: null,
+            lft: $lft,
+            rgt: $rgt,
+            depth: 0,
             entityType:  EntityType::from($data['entity_type'])
         );
 
@@ -42,14 +55,6 @@ class CommentService
 
         return $commentId;
     }
-
-//    public function syncTags(Id $commentId, array $tagIds): void
-//    {
-//        $this->repository->syncTags(
-//            new Id($articleId),
-//            $tagIds
-//        );
-//    }
 
     public function update(Id $id, array $data): void
     {
@@ -59,8 +64,12 @@ class CommentService
             id: $comment->id,
             userId: $comment->userId,
             entityId: $comment->entityId,
+            parentId: $comment->parentId,
+            lft: $comment->lft,
+            rgt: $comment->rgt,
+            depth: $comment->depth,
             entityType: $comment->entityType,
-            content: array_key_exists('content', $data) ? new CommentText($data['content']) : $article->content,
+            content: array_key_exists('content', $data) ? new CommentText($data['content']) : $comment->content,
             status: array_key_exists('status', $data) ? CommentStatus::from($data['status']) : $comment->status,
             created_at: $comment->created_at,
         );

@@ -26,16 +26,16 @@
                     <label>Permissions</label>
                     <select name="permissions[]" id="permissions-select" class="form-control" multiple>
                         @foreach($permissions as $permission)
-                            <option value="{{ $permission->id }}"
-                                    @if(isset($role) && in_array($permission->id->getValue(), $selectedPermissionIds ?? []))
+                            <option value="{{ $permission->value }}"
+                                    @if(isset($role) && in_array($permission->value, $selectedPermissionKeys ?? []))
                                         selected
                                 @endif
                             >
-                                {{ $permission->key }}
+                                {{ $permission->value }}
                             </option>
                         @endforeach
                     </select>
-                    <small class="text-muted">Можна обрати декілька тегів</small>
+                    <small class="text-muted">Можна обрати декілька permissions</small>
                 </div>
 
 

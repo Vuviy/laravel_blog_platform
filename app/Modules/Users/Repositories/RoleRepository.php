@@ -6,34 +6,31 @@ use App\ValueObjects\Id;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use Modules\Users\Entities\Permission;
 use Modules\Users\Entities\Role;
 use Modules\Users\Repositories\Contracts\RoleRepositoryInterface;
-use Modules\Users\ValueObjects\PermissionKey;
 use Modules\Users\ValueObjects\RoleName;
 use Symfony\Component\Uid\UuidV7;
 
 class RoleRepository implements RoleRepositoryInterface
 {
-
     private const TABLE_NAME = 'roles';
     private const PIVOT_TABLE = 'permission_role';
 
 
-    public function syncPermissions(Id $roleId, array $permissionIds): void
+    public function syncPermissions(Id $roleId, array $permissionKeys): void
     {
         DB::table(self::PIVOT_TABLE)
             ->where('role_id', $roleId->getValue())
             ->delete();
 
-        if (empty($permissionIds)) {
+        if (empty($permissionKeys)) {
             return;
         }
 
-        $rows = array_map(fn($permissionId) => [
+        $rows = array_map(fn($permissionKey) => [
             'role_id' => $roleId->getValue(),
-            'permission_id' => $permissionId,
-        ], $permissionIds);
+            'permission' => $permissionKey,
+        ], $permissionKeys);
 
         DB::table(self::PIVOT_TABLE)->insert($rows);
     }
@@ -49,19 +46,13 @@ class RoleRepository implements RoleRepositoryInterface
             return [];
         }
 
-        $rows = DB::table('permissions')
-            ->join(self::PIVOT_TABLE, 'permissions.id', '=', self::PIVOT_TABLE . '.permission_id')
+        $rows = DB::table(self::PIVOT_TABLE)
             ->whereIn(self::PIVOT_TABLE . '.role_id', $ids)
-            ->select('permissions.*', self::PIVOT_TABLE . '.role_id')
             ->get();
+
         $grouped = [];
         foreach ($rows as $row) {
-            $grouped[$row->role_id][] = new Permission(
-                id: new Id($row->id),
-                key: new PermissionKey($row->key),
-                createdAt: new \DateTimeImmutable($row->created_at),
-                updatedAt: new \DateTimeImmutable($row->updated_at),
-            );
+            $grouped[$row->role_id][] = \Modules\Users\Enums\Permission::from($row->permission);
         }
         return $grouped;
     }

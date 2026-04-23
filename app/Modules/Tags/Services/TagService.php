@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Tags\Services;
 
 use App\ValueObjects\Id;
@@ -50,5 +52,16 @@ class TagService
     public function delete(Id $id): void
     {
         $this->repository->delete($id);
+    }
+
+
+    public function getByTagName(string $tagName): ?Tag
+    {
+        return $this->repository->getByTagName($tagName);
+    }
+
+    public function getEntitiesByTag(Tag $tag): LengthAwarePaginator
+    {
+        return $this->repository->getEntitiesByTagId($tag->id);
     }
 }

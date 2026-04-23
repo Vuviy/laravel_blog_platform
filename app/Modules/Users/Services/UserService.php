@@ -4,7 +4,6 @@ namespace Modules\Users\Services;
 
 use App\ValueObjects\Id;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
 use Modules\Users\Repositories\Contracts\RoleRepositoryInterface;
 use Modules\Users\Repositories\Contracts\UserRepositoryInterface;

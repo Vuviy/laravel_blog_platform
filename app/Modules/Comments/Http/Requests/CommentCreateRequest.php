@@ -13,9 +13,9 @@ class CommentCreateRequest extends FormRequest
     {
         return [
             'content' => 'required|min:3|max:1000',
-            'user_id' => 'required|uuid',
             'entity_id' => 'required|uuid',
             'entity_type' => 'required|string',
+            'parent_id' => 'uuid',
         ];
     }
 

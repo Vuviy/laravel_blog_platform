@@ -4,8 +4,6 @@ namespace Modules\Users\Http\Controllers\Admin;
 
 use App\ValueObjects\Id;
 use Illuminate\Http\Request;
-use Modules\Users\Entities\Permission;
-use Modules\Users\Repositories\PermissionRepository;
 use Modules\Users\Services\RoleService;
 
 class RoleController
@@ -13,7 +11,6 @@ class RoleController
 
     public function __construct(
         private RoleService $service,
-        private PermissionRepository $tagRepository
     ) {}
     /**
      * Display a listing of the resource.
@@ -32,7 +29,7 @@ class RoleController
     public function create()
     {
         $title = __('common.create');
-        $permissions = $this->tagRepository->getAllList();
+        $permissions = \Modules\Users\Enums\Permission::cases();
 
         return view('users::role.form', compact('title', 'permissions'));
     }
@@ -62,14 +59,14 @@ class RoleController
 
         $role = $this->service->getById(new Id($id));
         $title = __('common.edit');
-        $permissions = $this->tagRepository->getAllList();
+        $permissions = \Modules\Users\Enums\Permission::cases();
 
-        $selectedPermissionIds = array_map(
-            fn(Permission $permission) => $permission->id->getValue(),
+        $selectedPermissionKeys = array_map(
+            fn(\Modules\Users\Enums\Permission $permission) => $permission->value,
             $role->permissions
         );
 
-        return view('users::role.form', compact('title', 'role', 'permissions', 'selectedPermissionIds'));
+        return view('users::role.form', compact('title', 'role', 'permissions', 'selectedPermissionKeys'));
     }
 
     /**

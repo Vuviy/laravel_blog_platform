@@ -8,7 +8,6 @@ use Modules\Tags\Services\TagService;
 
 class TagsController
 {
-
     public function __construct(
         private TagService $service
     ) {}

@@ -1,55 +1,46 @@
 <?php
+declare(strict_types=1);
 
 namespace Modules\News\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Modules\News\Filter\NewsFilter;
+use Modules\News\Services\NewsService;
+use Modules\Seo\Facades\Seo;
 
 class NewsController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(
+        private NewsService $service
+    ) {}
+
+    public function index(Request $request)
     {
-        return view('news::index');
+        $request->merge(["status"=>1]);
+        $filter = NewsFilter::fromRequest($request);
+        $news = $this->service->getAll($filter);
+        $title = __('common.news');
+        return view('news::index', compact('news', 'title', 'filter'));
+
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show(string $slug)
     {
-        return view('news::create');
+        $new = $this->service->getNewBySlug($slug);
+
+        Seo::setTitle($new->translate(app()->currentLocale())->seoTitle ?? $new->translate(app()->currentLocale())->title->getValue())
+            ->setDescription($new->translate(app()->currentLocale())->seoDescription ?? mb_substr( $new->translate(app()->currentLocale())->text->getValue(), 0, 160))
+            ->setCanonical(route('news.show',
+                [
+                    'locale' =>  app()->currentLocale(),
+                    'slug' => $new->slug
+                ]
+            ))
+            ->setOg('image',  $new->translate(app()->currentLocale())->seoOgImage ? asset('storage/' . $new->translate(app()->currentLocale())->seoOgImage) : '')
+            ->setOg('type', 'news');
+
+        return view('news::show', compact('new'));
+
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) {}
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('news::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('news::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id) {}
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id) {}
 }

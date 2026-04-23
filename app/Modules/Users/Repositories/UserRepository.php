@@ -6,13 +6,11 @@ use App\ValueObjects\Id;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use Modules\Users\Entities\Permission;
 use Modules\Users\Entities\Role;
 use Modules\Users\Entities\User;
 use Modules\Users\Repositories\Contracts\UserRepositoryInterface;
 use Modules\Users\ValueObjects\Email;
 use Modules\Users\ValueObjects\Password;
-use Modules\Users\ValueObjects\PermissionKey;
 use Modules\Users\ValueObjects\RoleName;
 use Modules\Users\ValueObjects\Username;
 use Symfony\Component\Uid\UuidV7;
@@ -25,7 +23,7 @@ class UserRepository implements UserRepositoryInterface
     public function syncRoles(Id $userId, array $roleIds): void
     {
         DB::table(self::ROLE_TABLE)
-            ->where('role_id', $userId->getValue())
+            ->where('user_id', $userId->getValue())
             ->delete();
 
         if (empty($roleIds)) {
@@ -54,7 +52,6 @@ class UserRepository implements UserRepositoryInterface
         $rows = DB::table('roles')
             ->join(self::ROLE_TABLE, 'roles.id', '=', self::ROLE_TABLE . '.role_id')
             ->leftJoin('permission_role', 'roles.id', '=', 'permission_role.role_id')
-            ->leftJoin('permissions', 'permission_role.permission_id', '=', 'permissions.id')
             ->whereIn(self::ROLE_TABLE . '.user_id', $ids)
             ->select(
                 'roles.id as role_id',
@@ -62,13 +59,9 @@ class UserRepository implements UserRepositoryInterface
                 'roles.created_at as role_created_at',
                 'roles.updated_at as role_updated_at',
                 self::ROLE_TABLE . '.user_id',
-                'permissions.id as permission_id',
-                'permissions.key as permission_key',
-                'permissions.created_at as permission_created_at',
-                'permissions.updated_at as permission_updated_at',
+                'permission_role.permission as permission'
             )
             ->get();
-
 
         $rolesMap = [];
         foreach ($rows as $row) {
@@ -76,22 +69,17 @@ class UserRepository implements UserRepositoryInterface
 
             if (!array_key_exists($key, $rolesMap)) {
                 $rolesMap[$key] = [
-                    'user_id'    => $row->user_id,
-                    'role_id'    => $row->role_id,
-                    'role_name'  => $row->role_name,
+                    'user_id' => $row->user_id,
+                    'role_id' => $row->role_id,
+                    'role_name' => $row->role_name,
                     'created_at' => $row->role_created_at,
                     'updated_at' => $row->role_updated_at,
                     'permissions' => [],
                 ];
             }
 
-            if ($row->permission_id !== null) {
-                $rolesMap[$key]['permissions'][] = new Permission(
-                    id: new Id($row->permission_id),
-                    key: new PermissionKey($row->permission_key),
-                    createdAt: new \DateTimeImmutable($row->permission_created_at),
-                    updatedAt: new \DateTimeImmutable($row->permission_updated_at),
-                );
+            if ($row->permission !== null) {
+                $rolesMap[$key]['permissions'][] = \Modules\Users\Enums\Permission::from($row->permission);
             }
         }
 
@@ -165,14 +153,14 @@ class UserRepository implements UserRepositoryInterface
 
     public function nextId(): Id
     {
-        return new Id((string) new UuidV7());
+        return new Id((string)new UuidV7());
     }
 
     public function getById(Id $userId): ?User
     {
-        $user =  DB::table(self::TABLE_NAME)->find($userId);
+        $user = DB::table(self::TABLE_NAME)->find($userId);
 
-        if(null === $user) {
+        if (null === $user) {
             return null;
         }
         $roles = $this->getRolesForUser($user->id);
@@ -190,9 +178,9 @@ class UserRepository implements UserRepositoryInterface
 
     public function getByEmail(Email $email): ?User
     {
-        $user =  DB::table(self::TABLE_NAME)->where('email', $email)->first();
+        $user = DB::table(self::TABLE_NAME)->where('email', $email)->first();
 
-        if(null === $user) {
+        if (null === $user) {
             return null;
         }
         $roles = $this->getRolesForUser($user->id);

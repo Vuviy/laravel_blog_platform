@@ -12,4 +12,8 @@ interface CommentRepositoryInterface
     public function get(Id $commentId): ?Comment;
     public function save(Comment $comment): string;
     public function delete(Id $id): void;
+
+    public function createChildComment(array $data): string;
+
+    public function getMaxRgt(Id $entityId): ?int;
 }

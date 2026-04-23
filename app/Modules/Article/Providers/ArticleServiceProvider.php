@@ -2,8 +2,8 @@
 
 namespace Modules\Article\Providers;
 
-use Modules\Article\Repositories\ArticleRepository;
-use Modules\Article\Repositories\Contracts\ArticleRepositoryInterface;
+use Modules\Article\Repositories\ArticleTaggableRepository;
+use Modules\Tags\Services\TaggableRegistry;
 use Nwidart\Modules\Support\ModuleServiceProvider;
 
 class ArticleServiceProvider extends ModuleServiceProvider
@@ -36,6 +36,16 @@ class ArticleServiceProvider extends ModuleServiceProvider
         RepositoryServiceProvider::class,
     ];
 
+
+    public function boot(): void
+    {
+        parent::boot();
+
+        $this->app->make(TaggableRegistry::class)
+            ->register(
+                $this->app->make(ArticleTaggableRepository::class)
+            );
+    }
     /**
      * Define module schedules.
      *

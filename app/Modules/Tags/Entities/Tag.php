@@ -3,7 +3,6 @@
 namespace Modules\Tags\Entities;
 
 use App\ValueObjects\Id;
-use Modules\Tags\ValueObjects\TagId;
 use Modules\Tags\ValueObjects\TagTitle;
 
 final class Tag

@@ -5,7 +5,7 @@
     <!-- Ім'я -->
 
 
-    <input type="hidden" name="user_id" value="{{ $user->id->getValue() }}">
+{{--    <input type="hidden" name="user_id" value="{{ $user->id->getValue() }}">--}}
     <input type="hidden" name="entity_id" value="{{ $entityId }}">
     <input type="hidden" name="entity_type" value="{{ $entityType }}">
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Modules\Article\Entities;
 
@@ -9,6 +10,7 @@ final class Article
 {
     public function __construct(
         public ?Id              $id = null,
+        public ?string              $slug = null,
         public bool                $status = false,
         public ?\DateTimeImmutable $created_at = null,
         public ?\DateTimeImmutable $updated_at = null,

@@ -3,7 +3,6 @@
 namespace Modules\Users\ValueObjects;
 class Password
 {
-
     private string $hash;
     public function __construct(){}
 
@@ -17,12 +16,6 @@ class Password
         return $instance;
     }
 
-    /**
-     * create from plain and hash
-     *
-     * @param string $plain
-     * @return self
-     */
     public static function fromPlain(string $plain): self
     {
         $hash = password_hash($plain, PASSWORD_ARGON2ID);
@@ -35,17 +28,11 @@ class Password
         return $instance;
     }
 
-    /**
-     * check plain
-     */
     public function verify(string $plain): bool
     {
         return password_verify($plain, $this->hash);
     }
 
-    /**
-     * return hash
-     */
     public function getHash(): string
     {
         return $this->hash;

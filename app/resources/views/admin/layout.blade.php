@@ -2,19 +2,19 @@
 <html lang="en">
 <!--begin::Head-->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>AdminLTE v4 | Dashboard</title>
 
     <!--begin::Accessibility Meta Tags-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-    <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+    <meta name="color-scheme" content="light dark"/>
+    <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)"/>
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)"/>
     <!--end::Accessibility Meta Tags-->
 
     <!--begin::Primary Meta Tags-->
-    <meta name="title" content="AdminLTE v4 | Dashboard" />
-    <meta name="author" content="ColorlibHQ" />
+    <meta name="title" content="AdminLTE v4 | Dashboard"/>
+    <meta name="author" content="ColorlibHQ"/>
     <meta
         name="description"
         content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS. Fully accessible with WCAG 2.1 AA compliance."
@@ -27,9 +27,8 @@
 
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
-    <meta name="supported-color-schemes" content="light dark" />
-    <link rel="preload" href="{{asset('/css/adminlte.css')}}" as="style" />
-{{--    <link rel="preload" href="./css/adminlte.css" as="style" />--}}
+    <meta name="supported-color-schemes" content="light dark"/>
+    <link rel="preload" href="{{asset('/css/adminlte.css')}}" as="style"/>
     <!--end::Accessibility Features-->
 
     <!--begin::Fonts-->
@@ -64,22 +63,25 @@
     <!--end::Required Plugin(AdminLTE)-->
 
     <!-- apexcharts -->
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
-            integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
-            crossorigin="anonymous"
-    />
+    {{--    <link--}}
+    {{--            rel="stylesheet"--}}
+    {{--            href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"--}}
+    {{--            integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="--}}
+    {{--            crossorigin="anonymous"--}}
+    {{--    />--}}
 
     <!-- jsvectormap -->
     <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
-            integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
-            crossorigin="anonymous"
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
+        integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
+        crossorigin="anonymous"
     />
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+    {{--    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">--}}
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet"/>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -97,9 +99,9 @@
             <a href="./index.html" class="brand-link">
                 <!--begin::Brand Image-->
                 <img
-                        src="./assets/img/AdminLTELogo.png"
-                        alt="AdminLTE Logo"
-                        class="brand-image opacity-75 shadow"
+                    src="./assets/img/AdminLTELogo.png"
+                    alt="AdminLTE Logo"
+                    class="brand-image opacity-75 shadow"
                 />
                 <!--end::Brand Image-->
                 <!--begin::Brand Text-->
@@ -123,12 +125,12 @@
                 <!--begin::Row-->
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3 class="mb-0">{{$title}}</h3>
+                        <h3 class="mb-0">{{isset($title) ? $title : ''}}</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
                             <li class="breadcrumb-item"><a href="{{@route('admin.dashboard')}}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{isset($title) ? $title : ''}}</li>
                         </ol>
                     </div>
                 </div>
@@ -171,18 +173,24 @@
 <!--begin::Script-->
 <!--begin::Third Party Plugin(OverlayScrollbars)-->
 <script
-        src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
-        crossorigin="anonymous"
+    src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
+    crossorigin="anonymous"
 ></script>
+
+<script
+    src="https://code.jquery.com/jquery-4.0.0.js"
+    integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U="
+    crossorigin="anonymous"></script>
+
 <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
 <script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        crossorigin="anonymous"
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    crossorigin="anonymous"
 ></script>
 <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
 <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
-        crossorigin="anonymous"
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+    crossorigin="anonymous"
 ></script>
 <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
 <script src="{{asset('js/adminlte.js')}}"></script>
@@ -239,74 +247,74 @@
 </script>
 
 <!-- apexcharts -->
-<script
-    src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
-    integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="
-    crossorigin="anonymous"
-></script>
+{{--<script--}}
+{{--    src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"--}}
+{{--    integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="--}}
+{{--    crossorigin="anonymous"--}}
+{{--></script>--}}
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 <!-- ChartJS -->
-<script>
-    // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
-    // IT'S ALL JUST JUNK FOR DEMO
-    // ++++++++++++++++++++++++++++++++++++++++++
+{{--<script>--}}
+{{--    // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT--}}
+{{--    // IT'S ALL JUST JUNK FOR DEMO--}}
+{{--    // ++++++++++++++++++++++++++++++++++++++++++--}}
 
-    const sales_chart_options = {
-        series: [
-            {
-                name: 'Digital Goods',
-                data: [28, 48, 40, 19, 86, 27, 90],
-            },
-            {
-                name: 'Electronics',
-                data: [65, 59, 80, 81, 56, 55, 40],
-            },
-        ],
-        chart: {
-            height: 300,
-            type: 'area',
-            toolbar: {
-                show: false,
-            },
-        },
-        legend: {
-            show: false,
-        },
-        colors: ['#0d6efd', '#20c997'],
-        dataLabels: {
-            enabled: false,
-        },
-        stroke: {
-            curve: 'smooth',
-        },
-        xaxis: {
-            type: 'datetime',
-            categories: [
-                '2023-01-01',
-                '2023-02-01',
-                '2023-03-01',
-                '2023-04-01',
-                '2023-05-01',
-                '2023-06-01',
-                '2023-07-01',
-            ],
-        },
-        tooltip: {
-            x: {
-                format: 'MMMM yyyy',
-            },
-        },
-    };
+{{--    const sales_chart_options = {--}}
+{{--        series: [--}}
+{{--            {--}}
+{{--                name: 'Digital Goods',--}}
+{{--                data: [28, 48, 40, 19, 86, 27, 90],--}}
+{{--            },--}}
+{{--            {--}}
+{{--                name: 'Electronics',--}}
+{{--                data: [65, 59, 80, 81, 56, 55, 40],--}}
+{{--            },--}}
+{{--        ],--}}
+{{--        chart: {--}}
+{{--            height: 300,--}}
+{{--            type: 'area',--}}
+{{--            toolbar: {--}}
+{{--                show: false,--}}
+{{--            },--}}
+{{--        },--}}
+{{--        legend: {--}}
+{{--            show: false,--}}
+{{--        },--}}
+{{--        colors: ['#0d6efd', '#20c997'],--}}
+{{--        dataLabels: {--}}
+{{--            enabled: false,--}}
+{{--        },--}}
+{{--        stroke: {--}}
+{{--            curve: 'smooth',--}}
+{{--        },--}}
+{{--        xaxis: {--}}
+{{--            type: 'datetime',--}}
+{{--            categories: [--}}
+{{--                '2023-01-01',--}}
+{{--                '2023-02-01',--}}
+{{--                '2023-03-01',--}}
+{{--                '2023-04-01',--}}
+{{--                '2023-05-01',--}}
+{{--                '2023-06-01',--}}
+{{--                '2023-07-01',--}}
+{{--            ],--}}
+{{--        },--}}
+{{--        tooltip: {--}}
+{{--            x: {--}}
+{{--                format: 'MMMM yyyy',--}}
+{{--            },--}}
+{{--        },--}}
+{{--    };--}}
 
-    const sales_chart = new ApexCharts(
-        document.querySelector('#revenue-chart'),
-        sales_chart_options,
-    );
-    sales_chart.render();
-</script>
+{{--    const sales_chart = new ApexCharts(--}}
+{{--        document.querySelector('#revenue-chart'),--}}
+{{--        sales_chart_options,--}}
+{{--    );--}}
+{{--    sales_chart.render();--}}
+{{--</script>--}}
 
 <!-- jsvectormap -->
 <script
@@ -321,99 +329,156 @@
 ></script>
 
 <!-- jsvectormap -->
-<script>
-    // World map by jsVectorMap
-    new jsVectorMap({
-        selector: '#world-map',
-        map: 'world',
-    });
+{{--<script>--}}
+{{--    // World map by jsVectorMap--}}
+{{--    new jsVectorMap({--}}
+{{--        selector: '#world-map',--}}
+{{--        map: 'world',--}}
+{{--    });--}}
 
-    // Sparkline charts
-    const option_sparkline1 = {
-        series: [
-            {
-                data: [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021],
-            },
-        ],
-        chart: {
-            type: 'area',
-            height: 50,
-            sparkline: {
-                enabled: true,
-            },
-        },
-        stroke: {
-            curve: 'straight',
-        },
-        fill: {
-            opacity: 0.3,
-        },
-        yaxis: {
-            min: 0,
-        },
-        colors: ['#DCE6EC'],
-    };
+{{--    // Sparkline charts--}}
+{{--    const option_sparkline1 = {--}}
+{{--        series: [--}}
+{{--            {--}}
+{{--                data: [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021],--}}
+{{--            },--}}
+{{--        ],--}}
+{{--        chart: {--}}
+{{--            type: 'area',--}}
+{{--            height: 50,--}}
+{{--            sparkline: {--}}
+{{--                enabled: true,--}}
+{{--            },--}}
+{{--        },--}}
+{{--        stroke: {--}}
+{{--            curve: 'straight',--}}
+{{--        },--}}
+{{--        fill: {--}}
+{{--            opacity: 0.3,--}}
+{{--        },--}}
+{{--        yaxis: {--}}
+{{--            min: 0,--}}
+{{--        },--}}
+{{--        colors: ['#DCE6EC'],--}}
+{{--    };--}}
 
-    const sparkline1 = new ApexCharts(document.querySelector('#sparkline-1'), option_sparkline1);
-    sparkline1.render();
+{{--    const sparkline1 = new ApexCharts(document.querySelector('#sparkline-1'), option_sparkline1);--}}
+{{--    sparkline1.render();--}}
 
-    const option_sparkline2 = {
-        series: [
-            {
-                data: [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921],
-            },
-        ],
-        chart: {
-            type: 'area',
-            height: 50,
-            sparkline: {
-                enabled: true,
-            },
-        },
-        stroke: {
-            curve: 'straight',
-        },
-        fill: {
-            opacity: 0.3,
-        },
-        yaxis: {
-            min: 0,
-        },
-        colors: ['#DCE6EC'],
-    };
+{{--    const option_sparkline2 = {--}}
+{{--        series: [--}}
+{{--            {--}}
+{{--                data: [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921],--}}
+{{--            },--}}
+{{--        ],--}}
+{{--        chart: {--}}
+{{--            type: 'area',--}}
+{{--            height: 50,--}}
+{{--            sparkline: {--}}
+{{--                enabled: true,--}}
+{{--            },--}}
+{{--        },--}}
+{{--        stroke: {--}}
+{{--            curve: 'straight',--}}
+{{--        },--}}
+{{--        fill: {--}}
+{{--            opacity: 0.3,--}}
+{{--        },--}}
+{{--        yaxis: {--}}
+{{--            min: 0,--}}
+{{--        },--}}
+{{--        colors: ['#DCE6EC'],--}}
+{{--    };--}}
 
-    const sparkline2 = new ApexCharts(document.querySelector('#sparkline-2'), option_sparkline2);
-    sparkline2.render();
+{{--    const sparkline2 = new ApexCharts(document.querySelector('#sparkline-2'), option_sparkline2);--}}
+{{--    sparkline2.render();--}}
 
-    const option_sparkline3 = {
-        series: [
-            {
-                data: [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21],
-            },
-        ],
-        chart: {
-            type: 'area',
-            height: 50,
-            sparkline: {
-                enabled: true,
-            },
-        },
-        stroke: {
-            curve: 'straight',
-        },
-        fill: {
-            opacity: 0.3,
-        },
-        yaxis: {
-            min: 0,
-        },
-        colors: ['#DCE6EC'],
-    };
+{{--    const option_sparkline3 = {--}}
+{{--        series: [--}}
+{{--            {--}}
+{{--                data: [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21],--}}
+{{--            },--}}
+{{--        ],--}}
+{{--        chart: {--}}
+{{--            type: 'area',--}}
+{{--            height: 50,--}}
+{{--            sparkline: {--}}
+{{--                enabled: true,--}}
+{{--            },--}}
+{{--        },--}}
+{{--        stroke: {--}}
+{{--            curve: 'straight',--}}
+{{--        },--}}
+{{--        fill: {--}}
+{{--            opacity: 0.3,--}}
+{{--        },--}}
+{{--        yaxis: {--}}
+{{--            min: 0,--}}
+{{--        },--}}
+{{--        colors: ['#DCE6EC'],--}}
+{{--    };--}}
 
-    const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
-    sparkline3.render();
-</script>
+{{--    const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);--}}
+{{--    sparkline3.render();--}}
+{{--</script>--}}
 <!--end::Script-->
+
+
+{{--<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>--}}
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+@stack('scripts')
+
+{{--<script>--}}
+{{--    $(document).ready(function () {--}}
+{{--        $('#tags-select').select2({--}}
+{{--            placeholder: 'Оберіть теги...',--}}
+{{--            allowClear: true,--}}
+{{--            width: '100%',--}}
+{{--        });--}}
+{{--    });--}}
+
+{{--</script>--}}
+
+{{--<script>--}}
+{{--    $(document).ready(function () {--}}
+{{--        $('#permissions-select').select2({--}}
+{{--            placeholder: 'Оберіть permissions...',--}}
+{{--            allowClear: true,--}}
+{{--            width: '100%',--}}
+{{--        });--}}
+{{--    });--}}
+
+{{--</script>--}}
+
+{{--<script>--}}
+{{--    $(document).ready(function () {--}}
+{{--        @foreach(config('app.available_locales') as $loc)--}}
+{{--        (function () {--}}
+{{--            var quill = new Quill('#editor-{{ $loc }}', {--}}
+{{--                theme: 'snow',--}}
+{{--                modules: {--}}
+{{--                    toolbar: [--}}
+{{--                        ['bold', 'italic', 'underline', 'strike'],--}}
+{{--                        ['blockquote', 'code-block'],--}}
+{{--                        [{'header': [1, 2, 3, false]}],--}}
+{{--                        [{'list': 'ordered'}, {'list': 'bullet'}],--}}
+{{--                        ['link', 'image'],--}}
+{{--                        ['clean'],--}}
+{{--                        [{ 'color': [] }, { 'background': [] }],--}}
+{{--                        [{ size: [ 'small', false, 'large', 'huge' ]}]--}}
+{{--                    ]--}}
+{{--                }--}}
+{{--            });--}}
+
+{{--            $('#article_form').on('submit', function () {--}}
+{{--                $('#content-{{ $loc }}').val(quill.root.innerHTML);--}}
+{{--            });--}}
+{{--        })();--}}
+{{--        @endforeach--}}
+{{--    });--}}
+{{--</script>--}}
+
 </body>
 <!--end::Body-->
 </html>

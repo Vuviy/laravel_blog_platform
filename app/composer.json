@@ -10,7 +10,10 @@
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "nwidart/laravel-modules": "*",
-        "symfony/uid": "^7.4"
+        "predis/predis": "^3.4",
+        "symfony/uid": "^7.4",
+        "ext-simplexml": "*",
+        "ext-dom": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

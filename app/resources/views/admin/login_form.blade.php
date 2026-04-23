@@ -66,13 +66,20 @@
 <!--begin::Body-->
 <body class="login-page bg-body-secondary">
 <div class="login-box">
-
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{ $error }}</div>
+    @endforeach
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <form action="{{route('admin.login')}}" method="post">
+            <form action="{{route('login')}}" method="post">
                 @csrf
                 <div class="input-group mb-3">
                     <input type="email" name="email" class="form-control" placeholder="Email" />

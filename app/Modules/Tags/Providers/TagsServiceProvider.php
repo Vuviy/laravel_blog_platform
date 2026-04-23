@@ -2,6 +2,7 @@
 
 namespace Modules\Tags\Providers;
 
+use Modules\Tags\Services\TaggableRegistry;
 use Nwidart\Modules\Support\ModuleServiceProvider;
 
 class TagsServiceProvider extends ModuleServiceProvider
@@ -34,6 +35,20 @@ class TagsServiceProvider extends ModuleServiceProvider
         RepositoryServiceProvider::class,
     ];
 
+
+    public function register(): void
+    {
+        parent::register();
+
+        $this->app->singleton(TaggableRegistry::class, function () {
+            return new TaggableRegistry();
+        });
+    }
+
+    public function boot(): void
+    {
+        parent::boot();
+    }
     /**
      * Define module schedules.
      *

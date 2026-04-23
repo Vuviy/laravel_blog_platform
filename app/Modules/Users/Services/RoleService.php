@@ -41,9 +41,9 @@ class RoleService
         return $roleId;
     }
 
-    public function syncPermissions(Id $roleId, array $permissionIds): void
+    public function syncPermissions(Id $roleId, array $permissionKeys): void
     {
-        $this->repository->syncPermissions($roleId, $permissionIds);
+        $this->repository->syncPermissions($roleId, $permissionKeys);
     }
 
     public function update(Id $id, array $data): void

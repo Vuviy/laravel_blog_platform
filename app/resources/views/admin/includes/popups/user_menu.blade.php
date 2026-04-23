@@ -32,7 +32,7 @@
     <!--begin::Menu Footer-->
     <li class="user-footer">
         <a href="#" class="btn btn-outline-secondary">Profile</a>
-        <form action="{{route('admin.logout')}}" method="POST">
+        <form action="{{route('logout')}}" method="POST">
             @csrf
         <button type="submit" class="btn btn-outline-danger float-end">Sign out</button>
 {{--        <a href="#"  class="btn btn-outline-danger float-end"></a>--}}

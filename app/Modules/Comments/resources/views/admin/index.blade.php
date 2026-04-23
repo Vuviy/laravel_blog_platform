@@ -41,7 +41,7 @@
                         <td>
                             {{$comment->status}}
                         </td>
-                        <td>{{$comment->content}}</td>
+                        <td>{{substr($comment->content, 0, 15)}}</td>
                         <td>
                             <a href="{{route('admin.comments.edit', $comment->id)}}" class="btn btn-warning btn-sm">Edit</a>
 

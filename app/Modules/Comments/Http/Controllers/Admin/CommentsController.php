@@ -2,14 +2,15 @@
 
 namespace Modules\Comments\Http\Controllers\Admin;
 
+use App\Attributes\AllowedPermissions;
 use App\ValueObjects\Id;
 use Illuminate\Http\Request;
 use Modules\Comments\Services\CommentService;
+use Modules\Users\Enums\Permission;
 
 
 class CommentsController
 {
-
     public function __construct(private CommentService $service)
     {
     }
@@ -31,7 +32,8 @@ class CommentsController
      */
     public function create()
     {
-        return view('comments::admin.form');
+        $title = __('common.comments');
+        return view('comments::admin.form', compact('title'));
     }
 
     /**
@@ -69,5 +71,10 @@ class CommentsController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) {}
+    #[AllowedPermissions([Permission::COMMENT_DELETE->value])]
+    public function destroy($id)
+    {
+        $this->service->delete(new Id($id));
+        return redirect(route('admin.comments.index'))->with('success', 'comment deleted successfully');
+    }
 }

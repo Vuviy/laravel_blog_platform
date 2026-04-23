@@ -6,6 +6,8 @@ namespace Modules\Article\Http\Controllers\Admin;
 use App\ValueObjects\Id;
 use Illuminate\Http\Request;
 use Modules\Article\Entities\ArticleTranslation;
+use Modules\Article\Filter\ArticleFilter;
+use Modules\Article\FilterDTO\Filter;
 use Modules\Article\Http\Requests\ArticleCreateRequest;
 use Modules\Article\Http\Requests\ArticleUpdateRequest;
 use Modules\Article\Repositories\ArticleRepository;
@@ -21,18 +23,23 @@ class ArticleController
 
     public function __construct(
         private ArticleService $service,
-        private TagRepository $tagRepository
-    ) {}
+        private TagRepository  $tagRepository
+    )
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $articles = $this->service->getAll();
+        $filter = ArticleFilter::fromRequest($request);
+        $articles = $this->service->getAll($filter);
+
         $title = 'Articles';
 
-        return view('article::admin.index', compact( 'articles','title'));
+        return view('article::admin.index', compact('articles', 'title', 'filter'));
     }
 
     /**
@@ -70,6 +77,8 @@ class ArticleController
     public function edit(string $id)
     {
         $article = $this->service->getArticleById(new Id($id));
+
+//        dd($article->translate(app()->getLocale())->seoTitle);
         $title = __('common.edit');
         $tags = $this->tagRepository->getAllList();
 

@@ -15,10 +15,12 @@ class User
         public Password $password,
         public ?Id $id = null,
         public array $roles = [],
+        public array $permissions = [],
         public ?\DateTimeImmutable $createdAt = null,
         public ?\DateTimeImmutable $updatedAt = null,
     )
     {
+        $this->optimizePermissions();
     }
 
     public function hasRole(string $roleName): bool
@@ -33,14 +35,19 @@ class User
 
     public function hasPermission(string $permissionKey): bool
     {
-        foreach ($this->roles as $role) {
-            foreach ($role->permissions as $permission) {
-                if ($permissionKey === $permission->key->getValue()) {
-                    return true;
-                }
-            }
+        if (array_key_exists($permissionKey, $this->permissions)) {
+            return true;
         }
         return false;
+    }
+
+    public function optimizePermissions(): void
+    {
+        foreach ($this->roles as $role) {
+            foreach ($role->permissions as $permission) {
+                $this->permissions[$permission->value] = $permission;
+            }
+        }
     }
 
 }

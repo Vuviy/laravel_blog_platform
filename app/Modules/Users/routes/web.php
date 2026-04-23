@@ -9,7 +9,6 @@ Route::resource('users', UsersController::class)->names('users');
 Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(function () {
     Route::resource('users', \Modules\Users\Http\Controllers\Admin\UsersController::class)->names('users');
     Route::resource('roles', \Modules\Users\Http\Controllers\Admin\RoleController::class)->names('roles');
-    Route::resource('permissions', \Modules\Users\Http\Controllers\Admin\PermissionController::class)->names('permissions');
 });
 
 Route::prefix('{locale}')

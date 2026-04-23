@@ -15,37 +15,41 @@
         @endif
         @if(isset($comment))
             <form method="POST" action="{{route('admin.comments.update', ['comment' => $comment->id])}}">
-        @method('PUT')
-        @else
-            <form method="POST" action="{{route('admin.comments.store')}}">
-        @endif
-                @csrf
-                <div class="card-body">
+                @method('PUT')
+                @else
+                    <form method="POST" action="{{route('admin.comments.store')}}">
+                        @endif
+                        @csrf
+                        <div class="card-body">
 
-                    <div class="form-group">
-                        <label>content</label>
-                        <input type="text" name="content" class="form-control"
-                               value="{{isset($comment) ? $comment->content->getValue() : ''}}">
-                    </div>
+                            <div class="form-group">
+                                <label>content</label>
+                                <input type="text" name="content" class="form-control"
+                                       value="{{isset($comment) ? $comment->content->getValue() : ''}}">
+                            </div>
 
-                    <div class="form-group">
-                        <label>Status</label>
+                            <div class="form-group">
+                                <label>Status</label>
 
-                        <select name="status">
-                            @foreach(CommentStatus::cases() as $status)
-                                <option value="{{ $status }}" @selected($comment->status->value === $status->value)>
-                                    {{ ucfirst($status->value) }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                                <select name="status">
+                                    @foreach(CommentStatus::cases() as $status)
+                                        <option value="{{ $status }}"
+                                        @if(isset($comment))
+                                            @selected($comment->status->value === $status->value)
+                                        @endif
+                                            >
+                                            {{ ucfirst($status->value) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-                </div>
+                        </div>
 
 
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Зберегти</button>
-                </div>
-            </form>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Зберегти</button>
+                        </div>
+                    </form>
     </div>
 @endsection
