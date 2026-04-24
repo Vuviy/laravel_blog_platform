@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Contracts\SessionManagerInterface;
 use App\ValueObjects\Id;
 use Closure;
 use Illuminate\Http\Request;
@@ -12,13 +11,11 @@ use Modules\Users\Services\UserService;
 class AdminUserMiddleware
 {
     public function __construct(private UserService $userService)
-//    public function __construct(private UserService $userService, private SessionManagerInterface $sessionManager)
     {
     }
 
     public function handle(Request $request, Closure $next)
     {
-//        $userId = $this->sessionManager->get('user_id');
         $userId = session('user_id');
 
         if(!$userId){

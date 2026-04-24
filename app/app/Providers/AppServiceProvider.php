@@ -5,11 +5,10 @@ namespace App\Providers;
 use App\Contracts\SessionManagerInterface;
 use App\Services\Session\FileSessionManager;
 use App\Services\Session\RedisSessionManager;
-use Illuminate\Contracts\Session\Session;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Session\SessionManager;
 use Illuminate\Support\ServiceProvider;
+
+use Illuminate\Contracts\Session\Session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,9 +22,9 @@ class AppServiceProvider extends ServiceProvider
             $driver =  env('SESSION_MANAGER', 'file');
 
             $session = $app->make(Session::class);
+
             return match($driver) {
                 'redis' => new RedisSessionManager($session),
-//                'redis' =>  RedisSessionManager::getInstance(),
                 default => new FileSessionManager($session),
             };
         });

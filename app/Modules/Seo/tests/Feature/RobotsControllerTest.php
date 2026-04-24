@@ -102,7 +102,6 @@ class RobotsControllerTest extends TestCase
     public function testIndexReturnsRobotsFileContent(): void
     {
         $response = $this->get('/robots.txt');
-
         $response->assertStatus(200);
         $response->assertHeader('Content-Type', 'text/plain; charset=UTF-8');
         $response->assertSee('User-agent: *');

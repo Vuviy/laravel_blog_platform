@@ -105,7 +105,7 @@
                 />
                 <!--end::Brand Image-->
                 <!--begin::Brand Text-->
-                <span class="brand-text fw-light">AdminLTE 4</span>
+                <span class="brand-text fw-light">{{session('locale')}}</span>
                 <!--end::Brand Text-->
             </a>
             <!--end::Brand Link-->
@@ -129,7 +129,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-end">
-                            <li class="breadcrumb-item"><a href="{{@route('admin.dashboard')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{isset($title) ? $title : ''}}</li>
                         </ol>
                     </div>

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Modules\News\Services;
 
+use App\Contracts\FilterInterface;
 use App\ValueObjects\Id;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +30,7 @@ class NewsService
         return $this->repository->getBySlug($slug);
     }
 
-    public function getAll(NewsFilter $filter): LengthAwarePaginator
+    public function getAll(FilterInterface $filter): LengthAwarePaginator
     {
         return $this->repository->getAll($filter);
     }

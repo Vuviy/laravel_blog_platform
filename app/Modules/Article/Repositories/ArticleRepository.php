@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Article\Repositories;
 
+use App\Contracts\FilterInterface;
 use App\ValueObjects\Id;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -26,7 +27,7 @@ class ArticleRepository implements ArticleRepositoryInterface
 {
     private const TABLE_NAME = 'articles';
     private const PIVOT_TABLE = 'taggables';
-    private const COMMENT_TABLE = 'nested_comments';
+    private const COMMENT_TABLE = 'comments';
     private const TRANSLATIONS_TABLE = 'article_translations';
     private const ENTITY_TYPE = 'Modules\Article\Entities\Article';
 
@@ -44,8 +45,6 @@ class ArticleRepository implements ArticleRepositoryInterface
             'entity_id' => $articleId->getValue(),
             'entity_type' => self::ENTITY_TYPE,
             'tag_id' => $tagId,
-            'created_at' => new \DateTimeImmutable(),
-            'updated_at' => new \DateTimeImmutable(),
         ], $tagIds);
 
         DB::table(self::PIVOT_TABLE)->insert($rows);
@@ -149,7 +148,7 @@ class ArticleRepository implements ArticleRepositoryInterface
         DB::table(self::TABLE_NAME)->delete($id);
     }
 
-    public function getAll(ArticleFilter $filter): LengthAwarePaginator
+    public function getAll(FilterInterface $filter): LengthAwarePaginator
     {
         $query = DB::table(self::TABLE_NAME . ' as a');
 

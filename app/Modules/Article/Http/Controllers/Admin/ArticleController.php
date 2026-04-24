@@ -1,22 +1,16 @@
 <?php
+declare(strict_types=1);
 
 namespace Modules\Article\Http\Controllers\Admin;
 
-
 use App\ValueObjects\Id;
 use Illuminate\Http\Request;
-use Modules\Article\Entities\ArticleTranslation;
 use Modules\Article\Filter\ArticleFilter;
-use Modules\Article\FilterDTO\Filter;
 use Modules\Article\Http\Requests\ArticleCreateRequest;
 use Modules\Article\Http\Requests\ArticleUpdateRequest;
-use Modules\Article\Repositories\ArticleRepository;
 use Modules\Article\Services\ArticleService;
-use Modules\Article\ValueObjects\ArticleId;
 use Modules\Tags\Entities\Tag;
 use Modules\Tags\Repositories\TagRepository;
-use Modules\Tags\ValueObjects\TagId;
-use Modules\Tags\ValueObjects\TagTitle;
 
 class ArticleController
 {
@@ -56,7 +50,6 @@ class ArticleController
     /**
      * Store a newly created resource in storage.
      */
-//    public function store(Request $request)
     public function store(ArticleCreateRequest $request)
     {
         $id = $this->service->create($request->all());
@@ -78,7 +71,6 @@ class ArticleController
     {
         $article = $this->service->getArticleById(new Id($id));
 
-//        dd($article->translate(app()->getLocale())->seoTitle);
         $title = __('common.edit');
         $tags = $this->tagRepository->getAllList();
 

@@ -2,6 +2,7 @@
 
 namespace Modules\Article\Repositories\Contracts;
 
+use App\Contracts\FilterInterface;
 use App\ValueObjects\Id;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -11,7 +12,7 @@ use Modules\Article\Filter\ArticleFilter;
 
 interface ArticleRepositoryInterface
 {
-    public function getAll(ArticleFilter $filter): LengthAwarePaginator;
+    public function getAll(FilterInterface $filter): LengthAwarePaginator;
     public function get(Id $articleId): ?Article;
     public function save(Article $article): string;
     public function delete(Id $id): void;

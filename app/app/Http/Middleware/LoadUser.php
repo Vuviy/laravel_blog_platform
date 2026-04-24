@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\ValueObjects\Id;
@@ -10,11 +12,9 @@ use Modules\Users\Services\UserService;
 
 class LoadUser
 {
-
     public function __construct(private UserService $userService)
     {
     }
-
     public function handle(Request $request, Closure $next)
     {
         $user = null;
@@ -26,12 +26,6 @@ class LoadUser
         }
 
         $user = $this->userService->getById(new Id($userId));
-
-        if(!$user){
-            $request->attributes->set('user', $user);
-            View::share('user', $user);
-            return $next($request);
-        }
 
         $request->attributes->set('user', $user);
         View::share('user', $user);

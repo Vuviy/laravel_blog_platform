@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Modules\News\Repositories\Contracts;
 
+use App\Contracts\FilterInterface;
 use App\ValueObjects\Id;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -12,7 +13,7 @@ use Modules\News\Filter\NewsFilter;
 
 interface NewsRepositoryInterface
 {
-    public function getAll(NewsFilter $filter): LengthAwarePaginator;
+    public function getAll(FilterInterface $filter): LengthAwarePaginator;
     public function get(Id $newId): ?News;
     public function save(News $new): string;
     public function delete(Id $id): void;

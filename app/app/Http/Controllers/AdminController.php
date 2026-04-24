@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
 
 class AdminController extends Controller
 {
@@ -15,9 +16,6 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-
-        $user = $request->attributes->get('user');
-
         $title = 'Admin';
         return view('admin.index', compact('title'));
     }
@@ -27,5 +25,4 @@ class AdminController extends Controller
         $title = 'Login';
         return view('admin.login_form', compact('title'));
     }
-
 }

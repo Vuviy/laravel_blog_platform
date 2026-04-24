@@ -155,8 +155,6 @@ class TagRepositoryTest extends TestCase
             'tag_id'      => $tagId,
             'entity_id'   => $entityId,
             'entity_type' => 'Modules\Article\Entities\Article',
-            'created_at'  => now(),
-            'updated_at'  => now(),
         ]);
 
         $dto = $this->makeDto($entityId, new \DateTimeImmutable());
@@ -182,8 +180,8 @@ class TagRepositoryTest extends TestCase
         $newId = (string) new UuidV7();
 
         DB::table('taggables')->insert([
-            ['tag_id' => $tagId, 'entity_id' => $oldId, 'entity_type' => 'Modules\Article\Entities\Article', 'created_at' => now(), 'updated_at' => now()],
-            ['tag_id' => $tagId, 'entity_id' => $newId, 'entity_type' => 'Modules\Article\Entities\Article', 'created_at' => now(), 'updated_at' => now()],
+            ['tag_id' => $tagId, 'entity_id' => $oldId, 'entity_type' => 'Modules\Article\Entities\Article'],
+            ['tag_id' => $tagId, 'entity_id' => $newId, 'entity_type' => 'Modules\Article\Entities\Article'],
         ]);
 
         $oldDto = $this->makeDto($oldId, new \DateTimeImmutable('2024-01-01'));

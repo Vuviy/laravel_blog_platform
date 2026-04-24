@@ -2,6 +2,7 @@
 
 namespace Modules\Article\Services;
 
+use App\Contracts\FilterInterface;
 use App\ValueObjects\Id;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
@@ -28,7 +29,7 @@ class ArticleService
         return $this->repository->getBySlug($slug);
     }
 
-    public function getAll(ArticleFilter $filter): LengthAwarePaginator
+    public function getAll(FilterInterface $filter): LengthAwarePaginator
     {
         return $this->repository->getAll($filter);
     }

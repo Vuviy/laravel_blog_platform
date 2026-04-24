@@ -8,8 +8,3 @@ Route::get('/{any}', function (string $any) {
     $locale = session('locale', config('app.locale'));
     return redirect('/' . $locale . '/' . trim($any, '/'));
 })->where('any', '^(?!(' . $locales . '|admin)(/|$)).*');
-
-
-
-
-

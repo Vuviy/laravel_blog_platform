@@ -35,7 +35,7 @@ class CommentRepositoryTest extends TestCase
         string $entityId = 'entity-uuid',
         string $status = 'pending',
     ): void {
-        DB::table('nested_comments')->insert([
+        DB::table('comments')->insert([
             'id'          => $id,
             'user_id'     => 'user-uuid',
             'entity_id'   => $entityId,
@@ -101,7 +101,7 @@ class CommentRepositoryTest extends TestCase
         $id = $this->repository->save($comment);
 
         $this->assertNotEmpty($id);
-        $this->assertDatabaseHas('nested_comments', ['id' => $id]);
+        $this->assertDatabaseHas('comments', ['id' => $id]);
     }
 
     public function testSaveStoresCorrectContent(): void
@@ -109,7 +109,7 @@ class CommentRepositoryTest extends TestCase
         $comment = $this->makeComment();
         $id = $this->repository->save($comment);
 
-        $this->assertDatabaseHas('nested_comments', [
+        $this->assertDatabaseHas('comments', [
             'id'      => $id,
             'content' => 'Тестовий коментар',
         ]);
@@ -120,7 +120,7 @@ class CommentRepositoryTest extends TestCase
         $comment = $this->makeComment();
         $id = $this->repository->save($comment);
 
-        $this->assertDatabaseHas('nested_comments', [
+        $this->assertDatabaseHas('comments', [
             'id'    => $id,
             'lft'   => 1,
             'rgt'   => 2,
@@ -148,7 +148,7 @@ class CommentRepositoryTest extends TestCase
 
         $this->repository->save($comment);
 
-        $this->assertDatabaseHas('nested_comments', [
+        $this->assertDatabaseHas('comments', [
             'id'      => $uuid,
             'content' => 'Оновлений коментар',
             'status'  => CommentStatus::APPROVED->value,
@@ -162,7 +162,7 @@ class CommentRepositoryTest extends TestCase
 
         $this->repository->delete(new Id($uuid));
 
-        $this->assertDatabaseMissing('nested_comments', ['id' => $uuid]);
+        $this->assertDatabaseMissing('comments', ['id' => $uuid]);
     }
 
     public function testGetAllReturnsPaginator(): void
@@ -237,7 +237,7 @@ class CommentRepositoryTest extends TestCase
             'content'   => 'Дочірній коментар',
         ]);
 
-        $this->assertDatabaseHas('nested_comments', [
+        $this->assertDatabaseHas('comments', [
             'id'    => $childId,
             'depth' => 1,
         ]);
@@ -254,7 +254,7 @@ class CommentRepositoryTest extends TestCase
             'content'   => 'Дочірній коментар',
         ]);
 
-        $parent = DB::table('nested_comments')->find($parentId);
+        $parent = DB::table('comments')->find($parentId);
         $this->assertEquals(4, $parent->rgt);
     }
 
@@ -269,7 +269,7 @@ class CommentRepositoryTest extends TestCase
             'content'   => 'Дочірній коментар',
         ]);
 
-        $this->assertDatabaseHas('nested_comments', [
+        $this->assertDatabaseHas('comments', [
             'id'  => $childId,
             'lft' => 2,
             'rgt' => 3,
@@ -287,7 +287,7 @@ class CommentRepositoryTest extends TestCase
             'content'   => 'Дочірній коментар',
         ]);
 
-        $this->assertDatabaseHas('nested_comments', [
+        $this->assertDatabaseHas('comments', [
             'id'        => $childId,
             'parent_id' => $parentId,
         ]);
@@ -308,7 +308,7 @@ class CommentRepositoryTest extends TestCase
             'content'   => 'Дочірній коментар',
         ]);
 
-        $sibling = DB::table('nested_comments')->find($siblingId);
+        $sibling = DB::table('comments')->find($siblingId);
         $this->assertEquals(5, $sibling->lft);
         $this->assertEquals(6, $sibling->rgt);
     }

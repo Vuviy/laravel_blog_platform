@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\News\Repositories;
 
+use App\Contracts\FilterInterface;
 use App\ValueObjects\Id;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -26,7 +27,7 @@ class NewsRepository implements NewsRepositoryInterface
 {
     private const TABLE_NAME = 'news';
     private const PIVOT_TABLE = 'taggables';
-    private const COMMENT_TABLE = 'nested_comments';
+    private const COMMENT_TABLE = 'comments';
     private const TRANSLATIONS_TABLE = 'news_translations';
     private const ENTITY_TYPE = 'Modules\News\Entities\News';
 
@@ -146,7 +147,7 @@ class NewsRepository implements NewsRepositoryInterface
         DB::table(self::TABLE_NAME)->delete($id);
     }
 
-    public function getAll(NewsFilter $filter): LengthAwarePaginator
+    public function getAll(FilterInterface $filter): LengthAwarePaginator
     {
         $query = DB::table(self::TABLE_NAME . ' as n');
 

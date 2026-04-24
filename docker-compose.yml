@@ -9,6 +9,8 @@ services:
       - 5173:5173
     depends_on:
       - redis
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   nginx:
     image: nginx:1.27.2

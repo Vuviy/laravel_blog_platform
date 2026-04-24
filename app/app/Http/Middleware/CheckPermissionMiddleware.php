@@ -3,26 +3,31 @@
 namespace App\Http\Middleware;
 
 use App\Attributes\AllowedPermissions;
+use App\ValueObjects\Id;
 use Closure;
 use Illuminate\Http\Request;
+use Modules\Users\Services\UserService;
 
 class CheckPermissionMiddleware
 {
+
+    public function __construct(private UserService $userService)
+    {
+    }
+
     public function handle(Request $request, Closure $next)
     {
         $route = $request->route();
-        $action = $route->getAction();
+        $controller = $route->getController();
+        $method = $route->getActionMethod();
 
-        $controller = $action['controller'] ?? null;
-
-        if (!$controller) {
+        if (!$controller || !$method) {
             return $next($request);
         }
 
-        [$controllerClass, $method] = explode('@', $controller);
-
-        $reflectionMethod = new \ReflectionMethod($controllerClass, $method);
+        $reflectionMethod = new \ReflectionMethod($controller, $method);
         $attributes = $reflectionMethod->getAttributes(AllowedPermissions::class);
+
 
         if (0 === count($attributes)) {
             return $next($request);
@@ -34,15 +39,20 @@ class CheckPermissionMiddleware
             return $next($request);
         }
 
-        $user = session('user');
+        $userId = session('user_id');
+        if (null === $userId) {
+            abort(403);
+        }
+        $user = $this->userService->getById(new Id($userId));
 
         if (null === $user) {
             abort(403);
         }
+
         $hasPermission = collect($allowedPermissions)->every(
             fn($permission) => $user->hasPermission($permission)
         );
-        
+
         if (false === $hasPermission) {
             return redirect()->back()->withErrors( ['message' => 'Not allowed to perform this action.']);
         }

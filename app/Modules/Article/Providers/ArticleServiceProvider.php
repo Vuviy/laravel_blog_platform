@@ -2,6 +2,8 @@
 
 namespace Modules\Article\Providers;
 
+use App\Contracts\FilterInterface;
+use Modules\Article\Filter\ArticleFilter;
 use Modules\Article\Repositories\ArticleTaggableRepository;
 use Modules\Tags\Services\TaggableRegistry;
 use Nwidart\Modules\Support\ModuleServiceProvider;
@@ -56,11 +58,14 @@ class ArticleServiceProvider extends ModuleServiceProvider
     //     $schedule->command('inspire')->hourly();
     // }
 
-//    public function register(): void
-//    {
-//        $this->app->bind(
-//            ArticleRepositoryInterface::class,
-//            ArticleRepository::class
-//        );
-//    }
+    public function register(): void
+    {
+
+        parent::register();
+
+        $this->app->bind(
+            FilterInterface::class,
+            ArticleFilter::class
+        );
+    }
 }
