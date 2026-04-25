@@ -28,8 +28,14 @@ A full-featured blog platform built with Laravel and PostgreSQL. Supports role-b
 | Session        | Redis 7.2 of file      |
 | Frontend       | Blade templates        |
 | Infrastructure | Docker (separate repo) |
+| Architecture   | Modular structure via [nwidart/laravel-modules](https://nwidart.com/laravel-modules) |
 
 ---
+
+## Architecture
+
+The application follows a modular structure using [nwidart/laravel-modules](https://nwidart.com/laravel-modules).  
+Each feature (Articles, News, SEO, Users, etc.) is isolated in its own module under the `Modules/` directory.
 
 ## Project Structure
 
