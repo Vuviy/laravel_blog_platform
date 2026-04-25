@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Modules\Comments\Entities;
 
@@ -8,7 +9,6 @@ use Modules\Comments\Enums\EntityType;
 use Modules\Comments\ValueObjects\CommentText;
 use Modules\Users\Entities\User;
 use Modules\Users\Repositories\UserRepository;
-use Modules\Users\Services\UserService;
 
 final class Comment
 {
