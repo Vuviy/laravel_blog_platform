@@ -28,7 +28,10 @@ A full-featured blog platform built with Laravel and PostgreSQL. Supports role-b
 | Session        | Redis 7.2 of file      |
 | Frontend       | Blade templates        |
 | Infrastructure | Docker (separate repo) |
-| Architecture   | Modular structure via [nwidart/laravel-modules](https://nwidart.com/laravel-modules) |
+| Architecture  git rm --cached .env
+git rm --cached app/.env
+git commit -m "remove .env from tracking"
+git push | Modular structure via [nwidart/laravel-modules](https://nwidart.com/laravel-modules) |
 
 ---
 
@@ -133,8 +136,9 @@ docker compose exec blog_php php artisan migrate
 
 ```
 docker compose exec blog_php chmod -R 775 storage bootstrap/cache
+docker compose exec blog_php chmod -R 775 public/sitemap.xml
+docker compose exec blog_php chmod -R 775 public/robots.txt
 ```
-
 **10. Open in browser**
 
 ```

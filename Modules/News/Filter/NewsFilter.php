@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\News\Filter;
 
-class NewsFilter
+use App\Filter\BaseFilter;
+
+class NewsFilter  extends BaseFilter
 {
     protected static function perPageDefault(): int
     {
